@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <report string="Purchase Order Report"
+                id="purchase_order_report_id"
+                model="purchase.order"
+                report_type="qweb-pdf"
+                name="purchase_order_reports.purchase_order_report"
+                file="purchase_order_reports.purchase_order_report"
+                paperformat="purchase_order_reports.paperformat_pdf_PO"
+                attachment="((object.name).replace('/','_')+'.pdf')"
+                print_report_name = "(object.name)"
+
+
+        />
+        <report string="Foreign Material Request"
+                id="material_request_report_id"
+                model="purchase.order"
+                report_type="qweb-pdf"
+                name="purchase_order_reports.material_request_report"
+                file="purchase_order_reports.material_request_report"
+                paperformat="purchase_order_reports.paperformat_pdf_MR"
+                attachment="((object.name).replace('/','_')+'.pdf')"
+                print_report_name = "(object.name)"
+
+        />
+
+
+    </data>
+</odoo>

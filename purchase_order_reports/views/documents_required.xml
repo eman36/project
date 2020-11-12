@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+<!-- FORM VIEW  -->
+
+        <record id="documents_required_view_tree_new" model="ir.ui.view">
+            <field name="name">documents.required.tree</field>
+            <field name="model">documents.required</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" >
+                    <field name="name" />
+
+                </tree>
+            </field>
+        </record>
+   <record id="documents_required_view_form_new" model="ir.ui.view">
+            <field name="name">documents.required.form</field>
+            <field name="model">documents.required</field>
+            <field name="arch" type="xml">
+                <form>
+
+                    <sheet>
+
+                    <group>
+                        <group>
+                           <field name="name" />
+
+
+                        </group>
+                    </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+<!-- ACTION     -->
+
+        <record id="documents_required_action" model="ir.actions.act_window">
+            <field name="name">Documents Required</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">documents.required</field>
+            <field name="view_mode">tree</field>
+        </record>
+       <menuitem action="documents_required_action" id="documents_required_menu"
+            parent="purchase.menu_purchase_config"
+                  name="Documents Required"
+            />
+    </data>
+
+ </odoo>

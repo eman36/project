@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_attention_model_po,attention_model_po,model_attention_model_po,,1,1,1,1
+access_delivery_term,delivery_term,model_delivery_term,,1,1,1,1
+access_delivery_time,delivery_time,model_delivery_time,,1,1,1,1
+access_DocumentsRequired,DocumentsRequired,model_documents_required,,1,1,1,1
+access_project_no,project_no,model_project_no,,1,1,1,1

@@ -1,0 +1,137 @@
+<odoo>
+    <data>
+          <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.account</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="40"/>
+            <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]/div[hasclass('app_settings_block')]" position="inside">
+                    <h2>Other Conditions</h2>
+                    <div class="row mt16 o_settings_container" id="invoicing_settings">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="use_other_conditions"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="use_other_conditions"/>
+                                    <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                                    <div class="text-muted">
+                                        Show  Other Conditions on Material Request Or Purchase Order
+                                    </div>
+                                    <div class="content-group" attrs="{'invisible': [('use_other_conditions','=',False)]}">
+                                        <div class="mt16">
+                                            <field name="other_condition" placeholder="Insert your Other Conditions here for Material Request Or Purchase Order..."/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+           <record id="purchase_order_inherit_supplier_view" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="div_check" invisible="1"/>
+                    <field name="division_type" attrs="{'readonly':[('div_check','=',True)]}"/>
+                </xpath>
+
+                 <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="delivery_term" />
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Project No">
+                        <field name="project_no">
+                        <tree editable="bottom">
+                            <field name="order" domain="['|','&amp;','&amp;',('state','=','create_final_guarantee'),('po','=',False),('tender','=',True),'&amp;','&amp;',('state','=','sale'),('po','=',False),('tender','=',False)]" options='{"no_create": True}' string="Project No"/>
+                             <field name="model"/>
+                             <field name="sn" string="S.N."/>
+
+                        </tree>
+                     </field>
+                    </page>
+                     <page string="Other Condition">
+                                <field name="other_condition" placeholder="Add Other Condition ..."/>
+                            </page>
+
+                </xpath>
+
+
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="before">
+                     <field name="sale_order" options='{"no_create": True}' string="Project No"/>
+                </xpath>
+                <xpath expr="//field[@name='date_approve']" position="after">
+                    <field name="attention_id" context="{'default_partner_id':partner_id}" domain="[('partner_id','=',partner_id)]"/>
+                    <field name="delivery_time"/>
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Documents Required">
+                        <field name="documents_required" >
+                            <tree>
+                                <field name="name" />
+
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+                  <xpath expr="//notebook/page/group[@class='oe_subtotal_footer oe_right']" position="after">
+                       <group name="second_group" col="6">
+                       <group class="oe_subtotal_footer oe_right" col="2">
+                                    <field name="total_EX_Work" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="free_delivery_charges" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="packing" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="fob_handling" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="coo" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="freight" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="certificate_of_origin" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="legalization_fees" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="insurance" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="shipping" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="total"/>
+
+                                    </div>
+                                    <field name="total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                     <label for="currency_id"/>
+                                    <field name="currency_id" readonly="1" nolabel="1"  />
+                                </group>
+                       </group>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="sale_order_inherit_customer_po_view" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="customer_po" string="Customer P.O."/>
+                </xpath>
+            </field>
+        </record>
+      <record id="sale_order_inherit_pronum_view" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="add_sale_type_sequence.add_project_num_sequence"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_num']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('state','in',['draft'])]}</attribute>
+                </xpath>
+            </field>
+      </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,355 @@
+<odoo>
+    <data>
+         <record id="paperformat_pdf_PO" model="report.paperformat">
+            <field name="name">European A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">17</field>
+            <field name="margin_left">27</field>
+            <field name="margin_right">27</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">25</field>
+             <field name="dpi">105</field>
+
+        </record>
+        <template id="external_layout_header_purchase_report">
+            <div class="header">
+                <center>
+                <table border="0" style="width:100%;">
+                    <tr>
+                        <td>
+                            <left>
+                                <th colspan="2" style="text-align:left;vertical-align:middle;font-size:23px;align:left;" ><span >Purchase Order No.:</span>
+                                <span t-field="o.name" ></span>
+                            </th>
+                            </left>
+
+<!--                            <th style="vertical-align:middle;font-size:23px;width:21%;" align="left">-->
+
+<!--                            </th>-->
+                            <right>
+                               <th style="align:right;">
+                            <div  style="align:right;">
+                                <img  src="/purchase_order_reports/static/description/header.png"
+                                     />
+                            </div>
+                           </th>
+                            </right>
+
+                        </td>
+
+
+                    </tr>
+                </table>
+                </center>
+
+
+
+            </div>
+
+            <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+                 t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+
+
+        </template>
+        <template id="external_layout_footer_purchase_report">
+            <div class="footer" >
+
+                <table style="width:100%;hieght:50px;font-weight:bold;">
+
+                     <tr >
+                        <th colspan="2">
+                            <td style="font-size:14px;height:1px" align="left">F-PUR-03</td>
+
+                        </th>
+                         <th colspan="2">
+                            <td style="font-size:14px;height:1px" align="right">Rev.No.(0)</td>
+                        </th>
+                         <th colspan="2">
+                            <td style="font-size:14px;height:1px" align="right"><span> Date: </span><span t-field="o.create_date" t-options='{"widget": "date"}'/></td>
+
+                        </th>
+
+                         <th colspan="2">
+                            <td style="font-size:14px;height:1px" align="right"><span></span></td>
+                            <td style="height:1px;color:#2a2a2a" align="right">
+                               <span style="font-size:14px;height:1px" >Page</span>
+                               <span style="font-weight:bold;font-size:15px;" class="page" />
+                                 of
+                                <span style="font-weight:bold;font-size:15px;" class="topage" />
+                            </td>
+                        </th>
+                       </tr>
+
+
+
+
+                </table>
+                <table style="width:100%;height:55px;font-weight:bold;background-color:#000066;color:white;" >
+
+                     <tr>
+                        <td style="width:40%;">
+                            <span style="font-size:16px;height:16px;display: block;" align="left">Plot No. S4-7, Zone 4, 2nd District</span>
+
+                        </td>
+                         <td style="width:25%" colspan="6">
+                             <span></span>
+                         </td>
+
+                         <td style="width:35%">
+                            <span style="font-size:16px;height:16px;display: block;" align="left">Tel.: +202 25619470 - 80</span>
+                         </td>
+
+
+                       </tr>
+                    <tr >
+                        <td>
+                            <span style="font-size:16px;height:16px;display: block;" align="left">5th Settlement, New Cairo, 11835</span>
+
+                        </td>
+                        <td colspan="6">
+                             <span></span>
+                         </td>
+
+                        <td >
+                            <span style="font-size:16px;height:16px;display: block;" align="left">Fax:+202 25619430</span>
+                        </td>
+
+                       </tr>
+                    <tr >
+                        <td>
+                              <span style="font-size:16px;height:16px;display: block;" align="left">P.O.Box:13 , Cairo, Egypt.</span>
+
+                        </td>
+                        <td colspan="6">
+                             <span></span>
+                         </td>
+
+                         <td >
+                             <span style="font-size:16px;height:16px;display: block;" align="left">Web Site: www.mymsa-eg.com</span>
+                        </td>
+
+                       </tr>
+
+
+
+
+                </table>
+
+               <!--<img src="/purchase_order_reports/static/description/footer.png" style="width:100%;height:55px;" />-->
+            </div>
+        </template>
+
+        <template id="external_layout_purchase_report">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+
+            <t t-call="purchase_order_reports.external_layout_header_purchase_report">
+                <t t-raw="0"/>
+            </t>
+            <t t-call="purchase_order_reports.external_layout_footer_purchase_report"/>
+
+        </template>
+
+           <!--  HEADER FOOTER FOR EG PTA      -->
+                <record id="paperformat_pdf_MR" model="report.paperformat">
+            <field name="name">European A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">Letter</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">17</field>
+            <field name="margin_left">17</field>
+            <field name="margin_right">17</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">25</field>
+            <field name="dpi">95</field>
+        </record>
+
+        <template id="external_layout_header_mr_report">
+            <div class="header">
+                <center>
+                <table border="0" style="width:100%;">
+                    <tr>
+                        <td>
+                            <th colspan="2" style="text-align:left;vertical-align:middle;font-size:23px;align:left;" >
+                                <span style="width:20%">Foreign Material Request No.:</span>
+                                <span t-field="o.name"></span>
+                                <p>
+                               <span style="vertical-align:middle;font-size:15px;">Date:</span>
+                                <span  style="vertical-align:middle;font-size:15px;" t-field="o.create_date" t-options='{"widget": "date"}'/>
+
+                                    <span style="vertical-align:middle;font-size:15px;color:white;" align="left">--------------------------------------------------------------------------------</span>
+                                    <span style="vertical-align:middle;font-size:15px;" align="right">Page</span>
+                               <span style="vertical-align:middle;font-weight:bold;font-size:16px;" class="page" align="right"/>
+                                    <span style="vertical-align:middle;font-weight:bold;font-size:16px;" align="right">/</span>
+
+                                <span style="vertical-align:middle;font-weight:bold;font-size:16px;" class="topage" align="right"/>
+
+
+                            </p>
+
+
+
+                            </th>
+<!--                            <th style="vertical-align:middle;font-size:23px;width:10%;" align="left">-->
+
+<!--                            </th>-->
+
+
+                            <th style="align:right;">
+                            <div  style="align:right;">
+                                <img src="/purchase_order_reports/static/description/header.png"
+                                     />
+                            </div>
+                        </th>
+                        </td>
+
+
+
+                    </tr>
+
+                </table>
+                </center>
+
+
+
+            </div>
+
+            <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+                 t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+
+
+        </template>
+
+        <template id="external_layout_footer_mr_report">
+            <div class="footer" >
+
+                <table style="width:100%;hieght:50px;font-weight:bold;">
+
+                     <tr >
+                        <th colspan="2">
+                            <td style="font-size:14px;height:1px" align="left">F-PUR-03</td>
+
+                        </th>
+                         <th colspan="2">
+                            <td style="font-size:14px;height:1px" align="right">Rev.No.(0)</td>
+                        </th>
+                         <th colspan="2">
+                            <td style="font-size:14px;height:1px" align="right"><span> Date: </span><span t-field="o.create_date" t-options='{"widget": "date"}'/></td>
+
+                        </th>
+
+
+                       </tr>
+
+
+
+
+                </table>
+                <table style="width:100%;height:55px;font-weight:bold;background-color:#000066;color:white;" >
+
+                     <tr>
+                        <td style="width:40%;">
+                            <span style="font-size:16px;height:16px;display: block;" align="left">Plot No. S4-7, Zone 4, 2nd District</span>
+
+                        </td>
+                         <td style="width:25%" colspan="6">
+                             <span></span>
+                         </td>
+
+                         <td style="width:35%">
+                            <span style="font-size:16px;height:16px;display: block;" align="left">Tel.: +202 25619470 - 80</span>
+                         </td>
+
+
+                       </tr>
+                    <tr >
+                        <td>
+                            <span style="font-size:16px;height:16px;display: block;" align="left">5th Settlement, New Cairo, 11835</span>
+
+                        </td>
+                        <td colspan="6">
+                             <span></span>
+                         </td>
+
+                        <td >
+                            <span style="font-size:16px;height:16px;display: block;" align="left">Fax:+202 25619430</span>
+                        </td>
+
+                       </tr>
+                    <tr >
+                        <td>
+                              <span style="font-size:16px;height:16px;display: block;" align="left">P.O.Box:13 , Cairo, Egypt.</span>
+
+                        </td>
+                        <td colspan="6">
+                             <span></span>
+                         </td>
+
+                         <td >
+                             <span style="font-size:16px;height:16px;display: block;" align="left">Web Site: www.mymsa-eg.com</span>
+                        </td>
+
+                       </tr>
+
+
+
+
+                </table>
+
+               <!--<img src="/purchase_order_reports/static/description/footer.png" style="width:100%;height:55px;" />-->
+            </div>
+        </template>
+
+        <template id="external_layout_mr_report">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+
+            <t t-call="purchase_order_reports.external_layout_header_mr_report">
+                <t t-raw="0"/>
+            </t>
+            <t t-call="purchase_order_reports.external_layout_footer_mr_report"/>
+
+        </template>
+
+    </data>
+</odoo>

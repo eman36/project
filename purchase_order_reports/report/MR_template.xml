@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="material_request_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="purchase_order_reports.external_layout_mr_report">
+                        <t t-set="o" t-value="o.with_context({'lang':'en_US'})"/>
+                        <br/>
+<!--                        <style type="text/css">-->
+<!--<![CDATA[-->
+<!--/* Ubuntu */-->
+<!--@font-face {-->
+<!--  font-style: normal;-->
+<!--  font-weight: 200;-->
+<!--}]]>-->
+
+<!--                        </style>-->
+                            <div class="page" >
+
+<!--                                         <p style="font-family: Arvo;">Test Arvo</p>-->
+                           <table style="width:100%;">
+                                <tr >
+                                    <th>
+                                        <td style="font-size:17px;font-weight:bold;height:1px;width:20%;" align="left"><span >Supplier</span></td>
+                                        <td style="height:1px;color:#2a2a2a;font-size:17px;font-weight:bold;width:30%;" align="left">
+                                            <span style="font-size:17px;font-weight:bold ;height:1px" >:</span>
+                                            <span t-field="o.partner_id.parent_id.name"/>
+                                            <span t-if="o.partner_id.parent_id.name">,</span>
+                                            <span t-field="o.partner_id.name"></span>
+                                        </td>
+                                    </th>
+                                    <th>
+
+                                        <td  style="font-size:17px;font-weight:bold;height:1px;width:20%;" align="left">
+                                            <span>Project No.</span></td>
+                                            <td style="font-size:17px;font-weight:bold;height:1px;width:30%;" align="left">
+                                            <span style="font-size:17px;font-weight:bold ;height:1px" >:</span>
+                                                <t t-set="description1" t-value="0"/>
+
+                                       <t t-foreach="o.project_no" t-as="l">
+                                           <t t-set="description1" t-value="description1 + 1"/>
+                                               <span  t-field="l.order.project_num"></span>
+                                           <t t-if="description1 != len(o.project_no)">
+                                         <span>/</span>
+                                  </t>
+                                       </t>
+                                        </td>
+                                     </th>
+
+
+                                </tr>
+                                <tr >
+                                    <th>
+                                        <td style="font-size:17px;font-weight:bold;height:1px;" align="left"><span >Supplier Ref. #</span></td>
+                                        <td style="height:1px;color:#2a2a2a;font-size:17px;font-weight:bold;" align="left">
+                                            <span style="font-size:17px;font-weight:bold ;height:1px" >:</span>
+                                            <span t-field="o.partner_ref"/>
+
+                                        </td>
+                                    </th>
+                                    <th>
+
+                                        <td  style="font-size:17px;font-weight:bold;height:1px" align="left">
+                                            <span>Customer Name</span></td>
+                                            <td style="font-size:17px;font-weight:bold;height:1px" align="left">
+                                            <span style="font-size:17px;font-weight:bold ;height:1px" >:</span>
+                                            <t t-set="description2" t-value="0"/>
+
+                                       <t t-foreach="o.project_no" t-as="l">
+                                           <t t-set="description2" t-value="description2 + 1"/>
+                                               <span  t-field="l.order.partner_id"></span>
+                                           <t t-if="description2 != len(o.project_no)">
+                                         <span>/</span>
+                                  </t>
+                                       </t>
+                                        </td>
+                                     </th>
+
+
+                                </tr>
+                                <tr>
+                                    <th >
+                                        <td style="font-size:17px;font-weight:bold ;height:1px;" align="left"><span >Contact Person</span></td>
+                                        <td style="height:1px;color:#2a2a2a;font-size:17px;font-weight:bold" align="left">
+                                            <span style="font-size:17px;font-weight:bold ;height:1px" >:</span>
+                                            <span  t-field="o.attention_id.name"></span>
+                                        </td>
+                                    </th>
+                                     <th>
+                                        <td style="font-size:17px;font-weight:bold ;height:1px" align="left">
+                                            <span >Customer P.O.</span></td>
+                                           <td style="font-size:17px;font-weight:bold;height:1px" align="left">
+                                            <span style="font-size:17px;font-weight:bold ;height:1px" >:</span>
+                                        <t t-set="description3" t-value="0"/>
+
+                                       <t t-foreach="o.project_no" t-as="l">
+                                           <t t-set="description3" t-value="description3 + 1"/>
+                                               <span  t-field="l.order.customer_po"></span>
+                                           <t t-if="description3 != len(o.project_no)">
+                                         <span>/</span>
+                                  </t>
+                                       </t>                                        </td>
+                              </th>
+
+
+                                </tr>
+                               <tr>
+                                    <th >
+                                        <td style="font-size:17px;font-weight:bold ;height:1px;" align="left"><span >Email address</span></td>
+                                        <td style="height:1px;color:#2a2a2a;font-size:17px;font-weight:bold" align="left">
+                                            <span style="font-size:17px;font-weight:bold ;height:1px" >:</span>
+                                            <span  t-field="o.attention_id.email"></span>
+                                        </td>
+                                    </th>
+
+
+
+                                </tr>
+                            </table>
+
+                            <table border="2"
+                                   style="border-color:#0000b3,border-style:solid;width:100%;height:50px;"
+                                   align="center">
+                                <thead align="center" style="background-color:#000066;color:white;">
+                                    <tr style="border: 2px solid #0000b3">
+
+                                        <td style="border: 2px solid #0000b3;width:30%;height:25px;">
+                                            <strong style="vertical-align:middle;">Delivery Term</strong>
+                                        </td>
+                                        <td style="border: 2px solid #0000b3;width:30%;height:25px;">
+                                            <strong style="vertical-align:middle;">Delivery Time</strong>
+                                        </td>
+                                        <td style="border: 2px solid #0000b3;width:40%;height:25px;">
+                                            <strong style="vertical-align:middle;">Due date / Customer</strong>
+                                        </td>
+
+
+                                    </tr>
+                                </thead>
+
+                                <tbody style="border: 2px solid #0000b3" align="center">
+                                    <tr style="border: 2px solid #0000b3">
+
+                                        <td style="border: 2px solid #0000b3;width:30%;height:25px;">
+                                            <span t-esc="o.delivery_term.name" style="vertical-align:middle;"/>
+
+                                        </td>
+                                        <td style="border: 2px solid #0000b3;width:30%;height:25px;">
+                                            <span t-esc="o.delivery_time.name" style="vertical-align:middle;"/>
+
+                                        </td>
+                                        <td style="border: 2px solid #0000b3;width:40%;height:25px;">
+                                            <span  style="vertical-align:middle;"/>
+
+                                        </td>
+
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                            <br/>
+                            <table
+                                    style="width:100%;height:100px;">
+                                <thead>
+                                    <tr>
+
+                                        <td align="left">
+                                            <span style="display: block;font-weight:bold;text-decoration: underline;">Bill
+                                                To:
+                                            </span>
+                                            <span style="display: block;">MYMSA for Agencies &amp; Trade .</span>
+                                            <span style="display: block;">Plot No. S4-7, Zone 4, 2nd District</span>
+                                            <span style="display: block;">5th Settlement, New Cairo, 11835</span>
+                                            <span style="display: block;">P.O.Box:13 , Cairo, Egypt.</span>
+                                            <span style="display: block;">Tel.: +202 25619470 - 80</span>
+                                            <span style="display: block;">Fax:+202 25619430</span>
+                                        </td>
+                                        <td align="left">
+                                            <span style="display: block;font-weight:bold;text-decoration: underline;">
+                                                Ship To:
+                                            </span>
+                                            <span style="display: block;">MYMSA for Agencies &amp; Trade .</span>
+                                            <span style="display: block;">Plot No. S4-7, Zone 4, 2nd District</span>
+                                            <span style="display: block;">5th Settlement, New Cairo, 11835</span>
+                                            <span style="display: block;">P.O.Box:13 , Cairo, Egypt.</span>
+                                            <span style="display: block;">Tel.: +202 25619470 - 80</span>
+                                            <span style="display: block;">Fax:+202 25619430</span>
+                                        </td>
+
+
+                                    </tr>
+                                </thead>
+
+
+                            </table>
+                            <p style="display: block;font-weight:bold;text-decoration: underline;">Payment Term:</p>
+                            <p style="display: block;" t-field="o.payment_term_id.note"></p>
+                            <br/>
+                            <p style="display: block;font-weight:bold;text-decoration: underline;">Documents Required:
+                            </p>
+                            <t t-foreach="o.documents_required" t-as="l">
+                              <td>
+                                  <input type="checkbox" id="checkbox112_anything_you_give" style="width:5%" checked="checked"/>
+                                  <span  t-field="l.name"></span>
+                                  <span>&#160;</span>
+                            </td>
+                               </t>
+
+                            <br/>
+
+                            <p style="display: block;font-weight:bold;text-decoration: underline;">In case of Spare
+                                parts / Software / Licence, please mention:
+                            </p>
+                                       <table style="width:100%;">
+                                               <t t-foreach="o.project_no" t-as="line">
+                                <tr >
+
+                                    <th>
+                                        <td style="font-size:17px;height:1px;width:15%;" align="left"><span >Project No:</span></td>
+                                        <td style="height:1px;color:#2a2a2a;font-size:17px;width:25%;" align="left">
+                                            <span t-field="line.order.project_num"/>
+
+                                        </td>
+                                    </th>
+                                    <th>
+                                        <td style="font-size:17px;height:1px;width:15%;" align="left"><span >Model:</span></td>
+                                        <td style="height:1px;color:#2a2a2a;font-size:17px;width:20%;" align="left">
+                                            <span t-field="line.model"/>
+
+                                        </td>
+                                    </th>
+                                    <th>
+
+                                        <td  style="font-size:17px;height:1px;width:5%;" align="left">
+                                            <span>S.N.:</span></td>
+                                            <td style="font-size:17px;height:1px;width:15%;" align="left">
+                                            <span t-field="line.sn"/>
+
+                                        </td>
+                                     </th>
+
+
+                                </tr>
+                                            </t>
+                                               <t t-if="not o.project_no" t-as="line">
+                                <tr >
+
+                                    <th>
+                                        <td style="font-size:17px;height:1px;width:15%;" align="left"><span >Project No:</span></td>
+                                        <td style="height:1px;color:#2a2a2a;font-size:17px;width:25%;" align="left">
+
+                                        </td>
+                                    </th>
+                                    <th>
+                                        <td style="font-size:17px;height:1px;width:15%;" align="left"><span >Model:</span></td>
+                                        <td style="height:1px;color:#2a2a2a;font-size:17px;width:20%;" align="left">
+
+                                        </td>
+                                    </th>
+                                    <th>
+
+                                        <td  style="font-size:17px;height:1px;width:5%;" align="left">
+                                            <span>S.N.:</span></td>
+                                            <td style="font-size:17px;height:1px;width:15%;" align="left">
+
+                                        </td>
+                                     </th>
+
+
+                                </tr>
+                                            </t>
+                                       </table>
+
+                            <br/>
+                            <p style="display: block;font-weight:bold;text-decoration: underline;">Other Conditions:</p>
+                             <p  t-field="o.other_condition"></p>
+                            <br/>
+
+                            <table border="2"
+                                   style="border-color:black,border-style:solid;width:100%;" align="center">
+                                <thead align="center" style="display:table-row-group;background-color:#000066;color:white;">
+                                    <tr style="border: 2px solid black" class="tabletitle,border-black">
+
+                                        <td style="border: 2px solid black;height:25px;">
+                                            <strong style="vertical-align:middle;">Qty.</strong>
+                                        </td>
+                                        <td style="border: 2px solid black;height:25px;">
+                                            <strong style="vertical-align:middle;">P.N.</strong>
+                                        </td>
+                                        <td style="border: 2px solid black;height:25px;" class="item">
+                                            <strong style="vertical-align:middle;">Description</strong>
+                                        </td>
+                                        <td style="border: 2px solid black;height:25px;" class="item">
+                                            <strong style="vertical-align:middle;">Type</strong>
+                                          <span>
+                                            App./SP/Cons./
+                                            Glas./Ser./Acc.
+                                            </span>
+                                        </td>
+                                        <td style="border: 2px solid black;height:25px;" class="item">
+                                            <strong style="vertical-align:middle;white-space: nowrap;">Unit Price
+                                            </strong>
+                                        </td>
+                                        <td style="border: 2px solid black;height:25px;" class="item">
+                                            <strong style="vertical-align:middle;white-space: nowrap;">Total Price
+                                            </strong>
+                                        </td>
+
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody style="border: 2px solid black" align="center">
+                                    <tr class="border-black" style="border: 2px solid black">
+                                        <t t-foreach="o.project_no" t-as="p">
+                                            <t t-set="flag" t-value="0"/>
+                                            <t t-foreach="o.order_line" t-as="line">
+                                                <t t-if="p.order == line.sale_order">
+                                                   <t t-set="flag" t-value="1"/>
+                                                </t>
+
+
+                                           </t>
+                                            <t t-if="flag == 1">
+                                               <tr style="border:2px solid black;height:25px;">
+                                                <td  colspan="3" style="border:2px solid black">
+                                                    <span style="vertical-align:middle;">Project No :</span>
+                                                    <span style="vertical-align:middle;" t-esc="p.order.project_num"/>
+
+                                                </td>
+                                                <td colspan="3" style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;">Customer P.O. :</span>
+                                                    <span style="vertical-align:middle;" t-esc="p.order.customer_po"/>
+
+                                                </td>
+                                               </tr>
+                                            </t>
+                                            <t t-foreach="o.order_line" t-as="line">
+
+                                            <tr t-if="p.order==line.sale_order and flag ==1" style="border:2px solid black;height:25px;">
+                                                <td style="border:2px solid black">
+                                                    <span style="vertical-align:middle;" t-esc="line.product_qty"/>
+
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.product_id.name"/>
+
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.name"/>
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.product_id.categ_id.name"/>
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.price_unit"/>
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.price_subtotal"/>
+                                                </td>
+
+
+                                            </tr>
+                                            <tr t-if="line.sale_order == False" style="border:2px solid black;height:25px;">
+                                                <td style="border:2px solid black">
+                                                    <span style="vertical-align:middle;" t-esc="line.product_qty"/>
+
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.product_id.name"/>
+
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.name"/>
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.product_id.categ_id.name"/>
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.price_unit"/>
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.price_subtotal"/>
+                                                </td>
+
+
+                                            </tr>
+
+                                        </t>
+                                        </t>
+                                        <t t-set="no" t-value="0"/>
+                                        <t t-foreach="o.order_line" t-as="line">
+                                                <t t-if="not line.sale_order">
+                                                   <t t-set="no" t-value="1"/>
+                                                </t>
+
+                                           </t>
+                                        <t t-if="no == 1">
+                                            <tr style="border:2px solid black;height:25px;">
+                                                <td  colspan="3" style="border:2px solid black">
+                                                    <span style="vertical-align:middle;">Project No :</span>
+                                                    <span style="vertical-align:middle;" />
+
+                                                </td>
+                                                <td colspan="3" style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;">Customer P.O. :</span>
+                                                    <span style="vertical-align:middle;" />
+
+                                                </td>
+                                               </tr>
+                                           <t t-foreach="o.order_line" t-as="line">
+                                            <tr t-if="not line.sale_order" style="border:2px solid black;height:25px;">
+                                                <td style="border:2px solid black">
+                                                    <span style="vertical-align:middle;" t-esc="line.product_qty"/>
+
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.product_id.name"/>
+
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.name"/>
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.product_id.categ_id.name"/>
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.price_unit"/>
+                                                </td>
+                                                <td style="border:2px solid black;height:25px;">
+                                                    <span style="vertical-align:middle;" t-esc="line.price_subtotal"/>
+                                                </td>
+
+
+                                            </tr>
+                                        </t>
+                                        </t>
+
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                            <table style="color:white;border-color:black,border-style:solid;width:36%;background-color:#000066;"
+                                   align="right" border="2">
+
+                                <tr>
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <strong >Total Ex-Work</strong>
+                                    </td>
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <span t-field="o.total_EX_Work"/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <strong>Packing / Handling</strong>
+                                    </td>
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <span t-field="o.packing"/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <strong>EUR1</strong>
+                                    </td>
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <span t-field="o.certificate_of_origin"/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <strong>C.O.O.</strong>
+                                    </td>
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <span t-field="o.coo"/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <strong>Invoice legalization</strong>
+                                    </td>
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <span t-field="o.legalization_fees"/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <strong>Insurance</strong>
+                                    </td>
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <span t-field="o.insurance"/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <strong>Freight</strong>
+                                    </td>
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <span t-field="o.freight"/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <span t-esc="o.total_EX_Work+o.packing+o.certificate_of_origin+o.coo+o.freight+o.insurance+o.legalization_fees"/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <strong>Currency</strong>
+                                    </td>
+                                    <td style="border: 2px solid black;height:20px;" align="center">
+                                        <span t-field="o.currency_id.name"/>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <table>
+                                <tr>
+
+                                </tr>
+                                <tr>
+
+                                </tr>
+                                <tr>
+                                    <td style="height:100px;"></td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td width="63%"></td>
+                                    <td align="right">
+
+                                        <span style="font-size:12px;white-space: nowrap;font-weight:bold;text-decoration: underline;">
+                                            * If Extra Charges, Please Specify
+                                        </span>
+
+
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th align="left">
+
+                                        <span>Requested By:</span>
+                                        <span t-field="o.create_uid"></span>
+
+
+                                    </th>
+
+                                </tr>
+                                <tr>
+                                    <th align="left">
+
+                                        <span>Revised by:</span>
+                                        <span t-field="o.user_second_approve"></span>
+
+
+
+                                    </th>
+
+                                </tr>
+                                <tr>
+                                    <th align="left">
+
+                                        <span>Approved by CEO:</span>
+                                        <span t-field="o.user_third_approve"></span>
+
+
+
+                                    </th>
+
+                                </tr>
+                            </table>
+
+
+                        </div>
+                        <p style="page-break-after: always;"/>
+
+                    </t>
+
+                </t>
+            </t>
+
+        </template>
+
+    </data>
+</odoo>
